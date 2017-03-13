@@ -1,19 +1,12 @@
 'use strict'
 
-var Koa = require('koa');
-var path = require('path');
-var wechat = require('./wechat/g');
-var config = require('./config')
-var weixin = require('./weixin')
-var util = require('./libs/util')
-var wechat_file = path.join(__dirname,'config/wechat.txt')
-
+var Koa = require('koa');//koa框架
+var wechat = require('./wechat/g');//引入g.js
+var config = require('./config')//引入config.js
+var weixin = require('./weixin')//引入weixin.js
 
 var app = new Koa();
-
-
 app.use(wechat(config.wechat,weixin.reply))
-// app.use(menu(config.menu))
 
 app.listen(3080)
 console.log('listening:3080');

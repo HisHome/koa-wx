@@ -1,4 +1,7 @@
 'use strict'
+var config=require('./config')
+var Wechat=require('./wechat/wechat')
+var wechatAPI= new Wechat(config.wechat)
 
 
 
@@ -28,10 +31,9 @@ exports.reply = function* (next){
       }
    }else if(message.MsgType == 'text'){
       var content = message.Content;
-      var reply = '回复的太复杂了:'+message.Content
+      var reply = '请回复1，2，3，4'
       if(content=='1'){
          reply = '天下第一'
-
       }else if(content =='2'){
          reply='天下第二'
       }else if(content=='3'){
@@ -48,6 +50,12 @@ exports.reply = function* (next){
             picUrl:'http://img.mukewang.com/5333a2a10001064f02000200-200-200.jpg',
             url:'www.baidu.com'
          }]
+      }else if (content == '5') {
+         var data = yield wechatAPI.uploadMaterial('image',__dirname+'/2.jpg')
+         reply={
+            type:'image',
+            mediaId:data.media_id
+         }
       }
       this.body=reply
    }
