@@ -52,8 +52,23 @@ exports.reply = function* (next){
          }]
       }else if (content == '5') {
          var data = yield wechatAPI.uploadMaterial('image',__dirname+'/2.jpg')
+         console.log(data);
          reply={
             type:'image',
+            mediaId:data.media_id
+         }
+      }else if (content == '6') {
+         var data = yield wechatAPI.uploadMaterial('voice',__dirname+'/7320.mp3')
+         console.log(data);
+         reply={
+            type:'voice',
+            mediaId:data.media_id
+         }
+      }else if (content == '7') {
+         var data = yield wechatAPI.uploadMaterial('video',__dirname+'/popo.mp4')
+         console.log(data);
+         reply={
+            type:'video',
             mediaId:data.media_id
          }
       }

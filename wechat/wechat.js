@@ -23,9 +23,8 @@ function Wechat(opts){
 }
 
 //获取新的access_token
-Wechat.prototype.fetchAccessToken = function (data) {
+Wechat.prototype.fetchAccessToken = function () {
    var that=this;
-
    if (this.access_token && this.expires_in) {
       if(this.isValidAccessToken(this)){
          return Promise.resolve(this)
@@ -94,7 +93,7 @@ Wechat.prototype.updateAccessToken = function () {
 
 }
 
-
+// 上传零时素材
 Wechat.prototype.uploadMaterial = function (type,filepath) {
    var that=this
    var form={
@@ -107,10 +106,10 @@ Wechat.prototype.uploadMaterial = function (type,filepath) {
       that.fetchAccessToken()
       .then(function(data){
          console.log(data);
-         var url = api.upload+'access_token='+data.access_token+'&type='+type
+         var url = api.upload+'access_token='+data.access_token+'&type='+type;
+         console.log(url);
          request({method:'POST',url:url,formData:form,json:true}).then(function(response){
             var _data = response.body;
-            console.log(_data);
             if(_data){
                resolve(_data)
             }else{
